@@ -1,0 +1,158 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "private_outputs": true,
+      "provenance": [],
+      "gpuType": "T4",
+      "authorship_tag": "ABX9TyNIx+br77HB40um4YRpcPAr",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Kaiyuan-Tan/HW1/blob/main/content/mmpose\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "bbDq-IlIITHM"
+      },
+      "outputs": [],
+      "source": [
+        "!pip3 install install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install -U openmim\n",
+        "!mim install mmengine\n",
+        "!mim install 'mmcv==2.0.0rc3'\n",
+        "!mim install \"mmdet>=3.0.0rc6\""
+      ],
+      "metadata": {
+        "id": "EwXfgEu-KMBE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install opencv-python pillow matplotlib seaborn tqdm pycocotools -i https://pypi.tuna.tsinghua.edu.cn/simple"
+      ],
+      "metadata": {
+        "id": "PIc8u0XJKS0j"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!rm -rf mmpose\n"
+      ],
+      "metadata": {
+        "id": "Xz1yrIBpKbLq"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!git clone https://github.com/open-mmlab/mmpose.git -b tutorial2023\n"
+      ],
+      "metadata": {
+        "id": "VZPuEGNWKeaq"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 进入主目录\n",
+        "import os\n",
+        "os.chdir('mmpose')"
+      ],
+      "metadata": {
+        "id": "CJtvzDAMKiLa"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!mim install -e .\n"
+      ],
+      "metadata": {
+        "id": "J0WL6TfHKwUS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "\n",
+        "# 创建 checkpoint 文件夹，用于存放预训练模型权重文件\n",
+        "os.mkdir('checkpoint')\n",
+        "\n",
+        "# 创建 outputs 文件夹，用于存放预测结果\n",
+        "os.mkdir('outputs')\n",
+        "\n",
+        "# 创建 data 文件夹，用于存放图片和视频素材\n",
+        "os.mkdir('data')\n",
+        "\n",
+        "os.mkdir('data/test')"
+      ],
+      "metadata": {
+        "id": "bpqVW1cgK1vp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 多人图片，来源：https://www.pexels.com/zh-cn/photo/2168292/\n",
+        "!wget https://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com/20220610-mmpose/images/multi-person.jpeg -O data/test/multi-person.jpeg\n",
+        "\n",
+        "# 单人视频-唱跳篮球 \n",
+        "!wget https://zihao-openmmlab.obs.myhuaweicloud.com/20220610-mmpose/videos/cxk.mp4 -P data/test\n",
+        "\n",
+        "# 妈妈和女儿跳舞，经微信压缩\n",
+        "!wget https://zihao-openmmlab.obs.myhuaweicloud.com/20220610-mmpose/videos/mother_wx.mp4 -P data/test\n",
+        "\n",
+        "# 两个女生跳舞视频，来源：https://mixkit.co/free-stock-video/two-girls-having-fun-in-a-retro-restaurant-42298/\n",
+        "!wget https://zihao-openmmlab.obs.cn-east-3.myhuaweicloud.com/20220610-mmpose/videos/two-girls.mp4 -O data/test/two-girls.mp4"
+      ],
+      "metadata": {
+        "id": "Us77GmRQLEV1"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
